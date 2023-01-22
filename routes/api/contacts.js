@@ -47,17 +47,18 @@ router.post('/', async (req, res, next) => {
 });
 
 router.delete('/:contactId', async (req, res, next) => {
-  try {
-    const deleteContact = await getContacts().then((contacts) =>
-      contacts.find((contact) => contact.id === req.params.contactId.toString()));
-    if (!deleteContact) {
-      res.status(404).json({ message: "Not found" });
-      return null;
-    };
-    await removeContact(req.params.contactId);
-    res.status(200).json({message:"Contact has been deleted"})
-  } catch (error) {
-    next(error);
+  const { contactId } = req.params;
+  const contactById = await getContactById(contactId);
+
+  if (!contactById) {
+    res.status(404).json({
+      message:"Contact was`t found, please try again"
+    })
+  } else {
+    await removeContact(contactId)
+    res.status(200).json({
+      message:"Success !!! Contact has been deleted"
+    })
   }
 })
 
