@@ -8,13 +8,7 @@ const getById = async (req, res, next) => {
     if (!result) {
       throw createError(404);
     }
-    res.json({
-      status: "success",
-      code: 200,
-      data: {
-        result,
-      },
-    });
+    res.json(result);
   } catch (error) {
     next(error);
   }

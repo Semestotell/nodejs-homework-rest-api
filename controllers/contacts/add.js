@@ -7,13 +7,7 @@ const add = async (req, res, next) => {
     if (!contact) {
       throw createError(404);
     }
-    res.status(201).json({
-      status: "success",
-      code: 201,
-      data: {
-        contact,
-      },
-    });
+    res.status(201).json(contact);
   } catch (error) {
     next(error);
   }

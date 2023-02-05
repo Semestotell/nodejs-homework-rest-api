@@ -9,14 +9,11 @@ const removeById = async (req, res, next) => {
     if (!result) {
       throw createError(404);
     }
-    res.json({
-      status: "success",
-      code: 200,
-      message: "contact delete",
-    });
-  } catch (error) {
-    next(error);
-  }
+    res.json({ message: "Contact has been deleted" })
+    }
+    catch (error) {
+      next(error);
+    }
 };
 
 module.exports = removeById;

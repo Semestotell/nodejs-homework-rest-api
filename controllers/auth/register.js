@@ -3,10 +3,6 @@ const { User, schemas } = require("../../models/user");
 const { createError } = require("../../helpers");
 
 const register = async (req, res) => {
-  const { error } = schemas.register.validate(req.body);
-  if (error) {
-    throw createError(400, error.message);
-  }
 
   const { email, password } = req.body;
   const user = await User.findOne({ email });
