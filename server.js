@@ -1,26 +1,17 @@
-const { mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const app = require("./app");
-const dotenv = require("dotenv");
-dotenv.config();
-mongoose.set("strictQuery", false);
 
-const { MONGO_URL } = process.env;
+const { DB_HOST, PORT = 3000 } = process.env;
 
-(async function main() {
-  try {
-    await mongoose
-      .connect(MONGO_URL)
-      .then(() => {
-        console.log("Database connection successful");
-        app.listen(3000, () => {
-          console.log("Server is running on port: 3000");
-        });
-      })
-      .catch((err) => {
-        console.error("Error with database connection:", err.message);
-        process.exit(1);
-      });
-  } catch (err) {
-    console.error("error:", err.message);
-  }
-})();
+mongoose.set("strictQuery", true);
+mongoose
+  .connect(DB_HOST)
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log("Database connection successful");
+    })
+  )
+  .catch((error) => {
+    console.log(error);
+    process.exit(1); 
+  });
