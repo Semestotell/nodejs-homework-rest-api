@@ -4,10 +4,6 @@ const { sendEmail } = require("../../email");
 
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
-  const { error } = schemas.email.validate({ email });
-  if (error) {
-    throw createError(400, "missing required field email");
-  }
 
   const user = await User.findOne({ email });
   if (!user) {
